@@ -2,7 +2,7 @@ import CustomerActionTypes from "../action-types/customer-action-types";
 import { CustomerAction } from "../actions";
 import { Customer } from "../models";
 
-const fetchCustomersReducer = (state: Customer[], action: CustomerAction) => {
+const fetchCustomersReducer = (state: Customer[] = [], action: CustomerAction) => {
     let nextState = state;
 
     if (action?.type === CustomerActionTypes.FetchCustomers) {
@@ -11,14 +11,14 @@ const fetchCustomersReducer = (state: Customer[], action: CustomerAction) => {
         }
     }
 
-    return
+    return nextState;
 };
 
 const isLoadingReducer = (state: boolean = false, action: CustomerAction) => {
     let nextState = state;
 
     if (action?.type === CustomerActionTypes.IsLoading) {
-        if (action.isLoading) {
+        if (action.isLoading !== undefined) {
             nextState = action.isLoading
         }
     }
@@ -37,6 +37,8 @@ const errorOccurredReducer = (state: { status?: boolean, error?: string } = {}, 
             };
         }
     }
+
+    return nextState;
 };
 
 const CustomerReducers = {
